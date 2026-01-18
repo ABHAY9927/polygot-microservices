@@ -1,10 +1,13 @@
 # Stage 1: Builder
 FROM python:3.10-slim AS builder
 WORKDIR /app
-COPY app.py .
-RUN pip install --no-cache-dir flask
 
-# Stage 2: Runtime 
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py .
+
+# Stage 2: Runtime
 FROM python:3.10-slim
 RUN useradd -m appuser
 WORKDIR /app
